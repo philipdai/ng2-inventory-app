@@ -18,7 +18,7 @@ System.register(['@angular/core', '@angular/platform-browser-dynamic'], function
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
     var core_1, platform_browser_dynamic_1;
-    var Product, ProductImage, ProductDepartment, PriceDisplay, ProductRow, ProductsList, InventoryApp;
+    var Product, ProductImage, ProductDepartment, PriceDisplay, ProductRow, ProductsList, SwitchSampleApp, StyleSampleApp, InventoryApp;
     return {
         setters:[
             function (core_1_1) {
@@ -140,6 +140,49 @@ System.register(['@angular/core', '@angular/platform-browser-dynamic'], function
                 ], ProductsList);
                 return ProductsList;
             }());
+            SwitchSampleApp = (function () {
+                function SwitchSampleApp() {
+                    this.choice = 1;
+                }
+                SwitchSampleApp.prototype.nextChoice = function () {
+                    this.choice += 1;
+                    if (this.choice > 5) {
+                        this.choice = 1;
+                    }
+                };
+                SwitchSampleApp = __decorate([
+                    core_1.Component({
+                        selector: 'switch-sample-app',
+                        template: "\n    <h4 class=\"ui horizontal divider header\" [ngStyle]=\"{color: 'white', 'background-color': 'blue', 'padding': '5px'}\">\n      Current choice is {{ choice }}\n    </h4>\n\n    <div class=\"ui raised segment\">\n      <ul [ngSwitch]=\"choice\">\n        <li *ngSwitchWhen=\"1\">First choice</li>\n        <li *ngSwitchWhen=\"2\">Second choice</li>\n        <li *ngSwitchWhen=\"3\">Third choice</li>\n        <li *ngSwitchWhen=\"4\">Fourth choice</li>\n        <li *ngSwitchWhen=\"2\">Second choice, again</li>\n        <li *ngSwitchDefault>Default choice</li>\n      </ul>\n    </div>\n\n    <div style=\"margin-top: 20px;\">\n      <button class=\"ui primary button\" (click)=\"nextChoice()\">\n        Next choice\n      </button>\n    </div>\n  "
+                    }), 
+                    __metadata('design:paramtypes', [])
+                ], SwitchSampleApp);
+                return SwitchSampleApp;
+            }());
+            StyleSampleApp = (function () {
+                function StyleSampleApp() {
+                    this.fontSize = 16;
+                    this.color = "blue";
+                    this.style = {
+                        'background-color': '#ccc',
+                        'border-radius': '50px',
+                        'height': '100px',
+                        'width': '100px',
+                    };
+                }
+                StyleSampleApp.prototype.apply = function (color, fontSize) {
+                    this.color = color;
+                    this.fontSize = fontSize;
+                };
+                StyleSampleApp = __decorate([
+                    core_1.Component({
+                        selector: 'style-sample-app',
+                        template: "\n    <h4 class=\"ui horizontal divider header\">\n      style.background-color\n    </h4>\n\n    <div [style.background-color]=\"'yellow'\">\n      Uses fixed yellow background\n    </div>\n\n    <h4 class=\"ui horizontal divider header\">\n      ngStyle literal\n    </h4>\n\n    <div [ngStyle]=\"{color: 'white', 'background-color': 'blue'}\">\n      Uses fixed white text on blue background\n    </div>\n\n    <h4 class=\"ui horizontal divider header\">\n      ngStyle literal and style.font-size.px\n    </h4>\n\n    <div>\n      <span [ngStyle]=\"{color: 'red'}\" [style.font-size.px]=\"fontSize\">\n        red text\n      </span>\n    </div>\n\n    <h4 class=\"ui horizontal divider header\">\n      ngStyle with an object\n    </h4>\n\n    <div [ngStyle]=\"style\"></div>\n    \n    <h4 class=\"ui horizontal divider header\">\n      Play with the color and font-size here\n    </h4>\n\n    <div class=\"ui input\">\n      <input type=\"text\" name=\"color\" value=\"{{color}}\" #colorinput>\n    </div>\n\n    <div class=\"ui input\">\n      <input type=\"text\" name=\"fontSize\" value=\"{{fontSize}}\" #fontinput>\n    </div>\n\n    <button class=\"ui primary button\" (click)=\"apply(colorinput.value, fontinput.value)\">\n      Apply settings\n    </button>\n\n    <h4 class=\"ui horizontal divider header\">\n      ngStyle with object property from variable\n    </h4>\n\n    <div>\n      <span [ngStyle]=\"{color: colorinput.value}\" [style.font-size.px]=\"fontSize\">\n        {{ colorinput.value }} text\n      </span>\n    </div>\n\n    <h4 class=\"ui horizontal divider header\">\n      style from variable\n    </h4>\n\n    <div [style.background-color]=\"colorinput.value\"\n         style=\"color: white;\">\n      {{ colorinput.value }} background\n    </div>\n\n    \n  "
+                    }), 
+                    __metadata('design:paramtypes', [])
+                ], StyleSampleApp);
+                return StyleSampleApp;
+            }());
             /**
              * @InventoryApp: the top-level component for our application
              */
@@ -157,8 +200,8 @@ System.register(['@angular/core', '@angular/platform-browser-dynamic'], function
                 InventoryApp = __decorate([
                     core_1.Component({
                         selector: 'inventory-app',
-                        directives: [ProductsList],
-                        template: "\n  <div class=\"inventory-app\">\n    <products-list \n      [productList]=\"products\" \n      (onProductSelected)=\"productWasSelected($event)\">\n    </products-list>\n  </div>\n  "
+                        directives: [ProductsList, SwitchSampleApp, StyleSampleApp],
+                        template: "\n  <div class=\"inventory-app\">\n    <products-list \n      [productList]=\"products\" \n      (onProductSelected)=\"productWasSelected($event)\">\n    </products-list>\n  </div>\n  <switch-sample-app></switch-sample-app>\n  <style-sample-app></style-sample-app>\n  "
                     }), 
                     __metadata('design:paramtypes', [])
                 ], InventoryApp);
